@@ -49,13 +49,18 @@ SUBGRAM_URL = "https://api.subgram.org/get-sponsors"
 SUBGRAM_TIMEOUT = 5
 SUBGRAM_RETRIES = 2
 
+# Награда за выполнение одного задания
 TASK_REWARD = 0.5
+
+# Минимальная сумма вывода
 MIN_WITHDRAW = 15
 
+# ================= РЕФЕРАЛЬНЫЕ БОНУСЫ =================
 REF_BONUS_INVITER = 3
 REF_BONUS_NEW = 0
 REF_PERCENT = 0.03
 
+# ================= КАНАЛЫ =================
 CHANNEL_1_LINK = "https://t.me/TapEasyStars"
 CHANNEL_2_LINK = "https://t.me/TapEasyVivod"
 CHANNEL_1_ID = -1003728951415
@@ -65,26 +70,20 @@ MODERATION_CHAT_ID = -1002857821966
 MODERATOR_IDS = [1539010179]
 WITHDRAW_CHANNEL_LINK = "https://t.me/TapEasyVivod"
 
+# ================= НАСТРОЙКИ БАЗЫ ДАННЫХ =================
+# Сохраняем БД в папке приложения (или в /tmp на Render)
+DB_PATH = os.path.join(os.path.dirname(__file__), "users.db") if os.getenv("RENDER") else "users.db"
+
 MAX_LIMIT = 500
 RESTORE_PER_MINUTE = 4.2
 CLICK_MIN = 0.5
 CLICK_MAX = 2.0
 
-# ================= БАЗА ДАННЫХ =================
-# Используем /tmp на Render (доступно для записи), иначе текущую папку
-if os.getenv("RENDER"):
-    DATA_DIR = "/tmp"
-else:
-    DATA_DIR = "."
-os.makedirs(DATA_DIR, exist_ok=True)
-DB_PATH = os.path.join(DATA_DIR, "users.db")
-logger.info(f"Database path: {DB_PATH}")
-
 # ================= КЭШ =================
 user_cache = TTLCache(maxsize=20000, ttl=600)
 subgram_cache = TTLCache(maxsize=2000, ttl=300)
 
-# ================= БАЗА ДАННЫХ (класс) =================
+# ================= БАЗА ДАННЫХ =================
 class Database:
     def __init__(self, db_path: str):
         self.db_path = db_path
