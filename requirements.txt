@@ -1,0 +1,6 @@
+python-telegram-bot==20.7
+aiosqlite==0.19.0
+cachetools==5.3.2
+aiohttp==3.9.1
+requests==2.31.0
+flask==3.0.0
